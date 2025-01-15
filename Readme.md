@@ -458,7 +458,7 @@ El roll a ball está hecho, pero añadí como ya se mostró anteriormente, obst�
 
 - Cambio de niveles (de momento hay 3, pero es ampliable a más)
 
-Para hacer el cambio de niveles, simplemente en el script del personaje, lo que hacemos es comprobar si los items recogidos son igual al total de items del tablero, en este caso 12. Si es así, cambiamos de posición tanto al jugador, como al enemigo.
+Para hacer el cambio de niveles, simplemente en el script del personaje, lo que hacemos es comprobar si los items recogidos son iguales al total de items del tablero, en este caso 12. Si es así, cambiamos de posición tanto al jugador, como al enemigo.
 
 ```bash
 #metodo para cambiar de nivel
@@ -530,6 +530,20 @@ mapa con obstáculos del nivel 2
 ![nivel2P1](https://github.com/user-attachments/assets/adb98cad-c741-485f-9cc9-b6f6347ffe31)
 
 ![nivel2P2](https://github.com/user-attachments/assets/f368c18a-2e99-4bf3-95fa-b215e269c28f)
+
+#### nivel 3
+
+```bash
+mapa con obstáculos del nivel 3
+```
+
+![nivel3P1](https://github.com/user-attachments/assets/655df566-942d-4305-9617-38fda7c6874c)
+
+
+![nivel3P2](https://github.com/user-attachments/assets/8a23652e-e835-43b5-a95d-618987e5e675)
+
+
+
 
 
 
