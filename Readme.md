@@ -5,8 +5,8 @@
 1. Creación del proyecto, plano del juego y personalización de obstáculos
 2. Creación del jugador y movimiento
 3. Configuración de camara y coleccionables
-4. enemigo y más personalizaciones del tablero
-5. Planteamiento de más niveles
+4. Enemigo del juego
+5. Planteamiento de más niveles y funcionalidades añadidas 
 
 ### 1. Creación del proyecto y plano del juego 😄
 Lo primero de todo sería crear el proyecto en Unity, para eso tenemos que irnos a Unity Hub y descargar la versión que vamos a utilizar, que es la **2022.3.50f1**.
@@ -362,7 +362,70 @@ dejar comfirmada la opción IsTrigger para detectar si el jugador entra en el ar
 #pequeña demo, segun cogemos coleccionables, la UI se actualiza, fijaros arriba a la izquierda
 ```
 
+
 ![coleccionables2](https://github.com/user-attachments/assets/aee07758-1312-4141-aea4-5b7fb482958f)
+
+### 4. Enemigo del juego 😱
+
+Para hacer el enemigo, podéis ir a los apuntes de damian que explica bien lo que hay que hacer para manejar el agente y los navMeshAgents, yo diré como lo he creado y un par de ajustes
+
+- Diseño del enemigo
+![enemigo1](https://github.com/user-attachments/assets/c3775034-f7a2-45cd-882b-f95f70036610)
+
+```bash
+Como se puede observar, son muchos objetos 3D metidos en un objeto que es una capsula.
+Cuando la capsula la movamos a traves del script, todos los objetos hijos del cilindro se van a mover con el
+```
+
+- Script del enemigo
+
+```bash
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class enemyController : MonoBehaviour
+{
+    private NavMeshAgent pathFinder;
+    private Transform target;
+
+
+
+    void Start()
+    {
+        pathFinder = GetComponent<NavMeshAgent>();
+        target = GameObject.Find("Player").transform;
+    }
+    void Update()
+    {
+        pathFinder.SetDestination(target.position);
+        Debug.Log(target.position);
+
+               
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("PlayerTag"))
+        {
+            // Llamamos al método que aplica el empuje al jugador
+            collision.gameObject.GetComponent<PlayerController>().ApplyKnockback();
+        }
+    }
+
+}
+```
+
+```bash
+#demo para demostrar que el enemigo nos sigue y que cuando colisionamos con él, le añadí la funcionalidad de que me levante hacia arriba
+```
+
+![enemigo2](https://github.com/user-attachments/assets/89710b96-e3cb-4475-9287-a8b20b2012ea)
+
+
+
+
 
 
 
