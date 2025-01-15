@@ -520,3 +520,16 @@ Para hacer el cambio de niveles, simplemente en el script del personaje, lo que 
 ```
 
 ![cambioNivel2](https://github.com/user-attachments/assets/ffec527c-98ad-4f74-84e0-f8bfd3cd03c9)
+
+
+#### nivel 2
+
+```bash
+mapa con obstáculos del nivel 2
+```
+![nivel2P1](https://github.com/user-attachments/assets/adb98cad-c741-485f-9cc9-b6f6347ffe31)
+
+![nivel2P2](https://github.com/user-attachments/assets/f368c18a-2e99-4bf3-95fa-b215e269c28f)
+
+
+
