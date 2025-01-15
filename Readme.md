@@ -53,4 +53,42 @@ Tenemos que tener a nuestro jugador el cúal es una bola que va rodando cogiendo
 Hecho todo lo anterior, el personaje se podrá mover sin problemas
 ```
 
+### 3. Configuración de camara y coleccionables 😄
+Vamos a hacer que la camara siga al jugador y los coleccionables
+
+```bash
+#para que la cámara siga al jugador, debemos de copiar y pegar este script
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraController : MonoBehaviour
+{
+//El objeto que será el jugador
+ public GameObject player;
+
+//varibale de tipo Vector3 para medir la distancia entre la cámara y el jugador
+ private Vector3 offset;
+
+ void Start()
+    {
+        offset = transform.position - player.transform.position; 
+    }
+
+ void LateUpdate()
+    {
+        transform.position = player.transform.position + offset;  
+    }
+}
+```
+
+Luego debemos de hacer lo siguiente:
+- Nos vamos a la camara
+- Hemos establecido una variable pública en el script, así que es accesible desde fuera del script
+- Esa variable la vamos a hacer igual al objeto 3D del player
+
+```bash
+Ahora la cámara va a seguir al jugador sin problemas
+```
+
 
