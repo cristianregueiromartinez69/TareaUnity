@@ -426,7 +426,97 @@ public class enemyController : MonoBehaviour
 
 
 
+### 5. Planteamiento de más niveles y funcionalidades añadidas 🤗
+
+El roll a ball está hecho, pero añadí como ya se mostró anteriormente, obstáculos para hacer el recorrido más interactivo. Además de eso, añadimos lo siguiente:
+- respawn
+
+```bash
+#como ya tenéis en el script del jugador, declaramos una variable para detectar cual es el límite del personaje para caer al vacío y si la sobrepasa, el jugador vuelve a la posición inicial
+
+    void resetFallPlayer()
+    {
+        if (transform.position.y < limitY && countLevelInt == 1)
+        {
+            countLifeInt -= 1;
+            transform.position = new Vector3(-1.723833f, 3.79f, -0.8895702f);
+        }
+        else if (transform.position.y < limitY && countLevelInt == 2)
+        {
+            countLifeInt -= 1;
+            transform.position = new Vector3(77.02f, 3.79f, -0.889570f);
+        } 
+        else if (transform.position.y < limitY && countLevelInt == 3)
+        {
+            countLifeInt -= 1;
+            transform.position = new Vector3(38.99f, 3.79f, -151.89f);
+        } 
+    }
+```
+
+![respawn1](https://github.com/user-attachments/assets/a52d076f-9425-4ee6-8492-e4a70467f277)
+
+- Cambio de niveles (de momento hay 3, pero es ampliable a más)
+
+Para hacer el cambio de niveles, simplemente en el script del personaje, lo que hacemos es comprobar si los items recogidos son igual al total de items del tablero, en este caso 12. Si es así, cambiamos de posición tanto al jugador, como al enemigo.
+
+```bash
+#metodo para cambiar de nivel
+ //metodo para cambiar de niveles
+    void changeLevel()
+    {
+        /*
+            Explicacion:
+            1. Para cambiar de niveles, verificamos si has cogido todos los items
+            2. si es así el nivel le sumamos un +1
+            3. luego vamos cambiando de niveles dependiendo de el valor del nivel
+            4. en cada nivel, hacemos reseteo de items encontrados, posicion del jugador y del enemigo
+            5. para el enemigo, tenemos que deshabilitar al agente ya que si no bloquea la posicion y no nos deja moverlo
+        */
+        if (countObjectsInt == totalItems)
+        {
+            countLevelInt += 1;
+            if (countLevelInt == 2)
+            {
+                transform.position = new Vector3(77.02f, 3.79f, -0.889570f);
+
+                NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+                if (agent != null)
+                {
+                    agent.enabled = false;
+                    enemy.transform.position = new Vector3(68.23f, 3.676f, 0.768f);
+                    agent.enabled = true;
+                    countObjectsInt = 0;
+                    countObjectsText.color = redColor;
+                }
+            }
+            if (countLevelInt == 3)
+            {
+                transform.position = new Vector3(38.99f, 3.79f, -151.89f);
+
+                 NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+                if (agent != null)
+                {
+                    agent.enabled = false;
+                    enemy.transform.position = new Vector3(54.18f, 3.69f, -136.6f);
+                    agent.enabled = true;
+                    countObjectsInt = 0;
+                    countObjectsText.color = redColor;
+                }
+
+            }
 
 
 
 
+        }
+
+
+    }
+```
+
+```bash
+#demo cambio de nivel
+```
+
+![cambioNivel2](https://github.com/user-attachments/assets/ffec527c-98ad-4f74-84e0-f8bfd3cd03c9)
