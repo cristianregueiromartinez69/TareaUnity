@@ -40,4 +40,17 @@ Para crear los obstáculos, simplemente hacemos lo siguiente:
 Estos obstáculos son suficientes para el primer nivel del juego
 ```
 
+### 2. Creación del jugador y movimiento 😄
+Tenemos que tener a nuestro jugador el cúal es una bola que va rodando cogiendo coleccionables. Para eso hacemos lo siguiente:
+
+- Creamos un objeto 3D que es una sphere
+- le damos las dimensiones que queremos y la ponemos en el plano
+- Añadimos un Rigidbody a la sphere para que se comporte como un objeto esfera de la vida real
+- A través de script, manejamos el movimiento del personaje
+- Para moverlo tenemos que ponerle unos Input settings
+
+```bash
+Hecho todo lo anterior, el personaje se podrá mover sin problemas
+```
+
 
