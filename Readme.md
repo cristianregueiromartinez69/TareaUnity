@@ -27,5 +27,17 @@ En nuestra escena vamos a hacer el suelo mediante un objeto 3D llamado Plane, el
 Ya tenemos hecho el suelo, ahora ponemos obstáculos para que sea algo complicado coger los coleccionables
 
 ```bash
-
+Para ganar, hay que coger 12 items y nos persigue un enemigo, el cual hablaremos más adelante
 ```
+
+Para crear los obstáculos, simplemente hacemos lo siguiente:
+- Creamos un objeto vacío llamado obstaculos.
+- Dentro de este vamos a crear muchos cubos que es el objeto 3D usado para los coleccionables.
+- Los cubos van a ser personalizados para formar unas paredes y laberintos.
+- El jugador no puede atravesarlos y debe de encontrar los coleccionables.
+
+```bash
+Estos obstáculos son suficientes para el primer nivel del juego
+```
+
+
