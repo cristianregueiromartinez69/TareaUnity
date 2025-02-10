@@ -654,3 +654,40 @@ Vector3 movement = movementDirection * movementY; // Crea el vector de movimient
 2. Cremos un vector3 con la dirección de rotación de la cámara y lo multiplicamos por el Vector3.forward para ir solo hacia adelante
 3. Proyectamos la dirección hacia adelante en el plano horizontal
 4. Por último, multiplicamos el movementDirection por el movementY, que es cuando el jugador le da a las flechas adelante y atrás y listo, ya tenemos cámara en primera persona.
+
+
+### 3. Creación y script de los coleccionables. 😄
+
+Para crear los coleccionables, primero tenemos que tenerlos metidos en una carpeta llamada prefabs. Esto porqué 🤔
+
+1. No vamos a hacer 1 solo coleccionable, sino varios
+2. Al hacer un prefab de 1 coleccionable y luego duplicarlo, los cambios en el primero, afectan al resto
+3. Esto se aplica al script y colores de los mismos
+
+![prefab1](https://github.com/user-attachments/assets/a0a740eb-1af7-4c87-ac54-9de151270f7e)
+
+Para que cuando el jugador toque el pick Up, este desaparezca, tenemos que asignar la ipción isTrigger.
+
+![prefab2](https://github.com/user-attachments/assets/e6134c68-34e8-48f5-8027-d5da543411fb)
+
+Esto hará que aquí.
+
+```bash
+ if (other.gameObject.CompareTag("Pick Up"))
+        {
+            other.gameObject.SetActive(false);
+            countObjectsInt += 1;
+            setCountText();
+
+        }
+```
+
+Cuando el jugador toque un objeto cuya etiqueta sea ***Pick Up***, este objeto desaparezca a través del método SetActive(false).
+
+[prefab1.webm](https://github.com/user-attachments/assets/99f0ef3c-699b-4c89-bd45-b860ef916669)
+
+Como vemos en el vídeo anterior, el jugador al tocar un coleccionable, este desaparece.
+
+
+
+
