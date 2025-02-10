@@ -688,6 +688,86 @@ Cuando el jugador toque un objeto cuya etiqueta sea ***Pick Up***, este objeto d
 
 Como vemos en el vídeo anterior, el jugador al tocar un coleccionable, este desaparece.
 
+### 4.  Creación y script del enemigo. 😜
+
+Como vimos en los vídeos, en el juego tenemos 2 enemigos que nos persiguen y si nos tocan, salimos volando a la luna. Para eso tenemos que hacer lo siguiente.
+
+1. Asigarle un agente de navegación al enemigo
+
+![enemy1](https://github.com/user-attachments/assets/9c616e42-bf1d-470e-9442-c6e42e5cd029)
+
+2. Indicar porque áreas tiene que circular
+
+![enemy2](https://github.com/user-attachments/assets/643df985-d551-40cd-9df0-719cb8ccc243)
+
+```bash
+script del enemigo
+```
+
+<details>
+  <summary>Enemy Controller.cs</summary>
+  private NavMeshAgent pathFinder;
+    private Transform target;
+
+
+
+    void Start()
+    {
+        pathFinder = GetComponent<NavMeshAgent>();
+        target = GameObject.Find("Player").transform;
+    }
+    void Update()
+    {
+        pathFinder.SetDestination(target.position);
+        Debug.Log(target.position);
+
+               
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("PlayerTag"))
+        {
+            // Llamamos al método que aplica el empuje al jugador
+            collision.gameObject.GetComponent<PlayerController>().ApplyKnockback();
+        }
+    }
+</details>
+
+En el script anterior, no nos hizo falta poner el transform público, simplemente a través de esta línea.
+
+```bash
+target = GameObject.Find("Player").transform;
+```
+Ya obtenemos el vector de donde está el jugador para que lo persiga.
+
+[enemy1.webm](https://github.com/user-attachments/assets/d75c2683-5d98-4a51-860c-1e8457d61e47)
+
+***Como hacemos la colisión para que el enemigo nos mande a volar***🤔
+
+Eso lo hacemos a través de esta línea en el script del enemigo.
+
+```bash
+collision.gameObject.GetComponent<PlayerController>().ApplyKnockback();
+```
+
+Cuando el enemigo entra en contacto con un objeto 3D cuya etiqueta sea ***PlayerTag***, llama al método que está en el jugador que es ApplyKnockBack();
+
+```bash
+ public void ApplyKnockback()
+    {
+        if (!soyInmortal)
+        {
+            Vector3 knockback = new Vector3(0f, knockbackForce, 0f);
+            rb.AddForce(knockback, ForceMode.Impulse);
+        }
+
+    }
+```
+
+Básicamente aplicamos una fuerza sobre el ejeY y nos manda a volar.
+
+
 
 
 
