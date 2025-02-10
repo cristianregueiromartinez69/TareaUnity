@@ -514,5 +514,143 @@ Creamos un vector3 y con ese vector, le aplicamos la fuerza al rigidBody con el 
 **Importante** 😱
 Si nos fijamos en el script, tenemos una variable pública que es speed. Esa variables nos va a servir para, desde el unity, poder modificar la velocidad a nuestro gusto sin tener que ir al código expresamente.
 
+### 2. Creación y script de las cámaras. 😄
+
+Ahora vamos con las cámaras. En nuestro juego tenemos un total de 3 cámaras.
+
+<details>
+  <summary>camara principal.cs</summary>
+   public GameObject player;
+    private Vector3 offset;
+    void Start()
+    {
+        offset = transform.position - player.transform.position;
+
+    }
+
+    void LateUpdate()
+    {
+        transform.position = player.transform.position + offset;
+    }
+</details>
+
+[camaraNormal.webm](https://github.com/user-attachments/assets/6744fc38-eaca-40b3-ad1e-5a283f0e8c98)
 
 
+<details>
+  <summary>camara primera persona.cs</summary>
+   public GameObject player;
+    private Vector3 offset;
+    void Start()
+    {
+        offset = transform.position - player.transform.position;
+
+    }
+
+    void LateUpdate()
+    {
+        float movimientoHorizontal = Input.GetAxis("Horizontal");
+
+        if (movimientoHorizontal != 0)
+        {
+            transform.Rotate(0, movimientoHorizontal, 0);
+
+        }
+        transform.position = player.transform.position + offset;
+
+
+    }
+</details>
+
+[primeraPersona.webm](https://github.com/user-attachments/assets/0b639b82-fa5d-4283-aa28-327b2cb3ca98)
+
+
+<details>
+  <summary>Camara Cenital.cs</summary>
+   public Transform target;
+    public float rotationSpeed = 10.0f;
+
+    void Start()
+    {
+
+    }
+    void Update()
+    {
+
+        transform.RotateAround(target.position, Vector3.up, rotationSpeed * Time.deltaTime);
+
+        transform.LookAt(target);
+
+    }
+</details>
+
+[camaraCenital.webm](https://github.com/user-attachments/assets/9b7e0537-5328-4d23-8684-624bd6932170)
+
+Por último tenemos la camaraManager, que se encarga de según pulses la ***Q*** sucesivamente, aparezca una cámara u otra.
+
+<details>
+  <summary>Script camara manager.cs</summary>
+   public GameObject[] cameras;
+    private int index = 0;
+    void Start()
+    {
+
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            cameras[index].SetActive(false);
+            index++;
+            if(index >= cameras.Length){
+                index = 0;
+            }
+            cameras[index].SetActive(true);
+        }
+    }
+</details>
+
+[camaraManager.webm](https://github.com/user-attachments/assets/19776306-b430-451b-9cff-aa7147dae500)
+
+**Como funciona el script del camara manager** 🤔
+
+```bash
+ if (Input.GetKeyDown(KeyCode.Q))
+        {
+            cameras[index].SetActive(false);
+            index++;
+            if(index >= cameras.Length){
+                index = 0;
+            }
+            cameras[index].SetActive(true);
+        }
+```
+1. Establecemos la condicion de que, si el usuario pulsa la letra ***Q***, la cámara actual deja de funcionar
+2. Se suma en +1 el índice de cámaras
+3. Si el índice es mayor que la longitud del array de cámaras, el índice es 0
+4. Se activa la cámara en el índice correspondiente
+
+**Como funciona la cámara de primera persona** 🤔
+
+```bash
+ float movimientoHorizontal = Input.GetAxis("Horizontal");
+
+        if (movimientoHorizontal != 0)
+        {
+            transform.Rotate(0, movimientoHorizontal, 0);
+
+        }
+        transform.position = player.transform.position + offset;
+```
+Con el script anterior, hacemos que la cámara de primera persona, gire solo de izquierda a derecha. Después en el script del jugador hacemos esto.
+
+```bash
+ Quaternion cameraRotation = firstPersonCamera.transform.rotation; // esto obtiene la rotacíon de la cámara
+Vector3 cameraForward = cameraRotation * Vector3.forward; // esto calcula la dirección hacia adelante de la cámara
+Vector3 movementDirection = Vector3.ProjectOnPlane(cameraForward, Vector3.up).normalized; // esto  Proyecta la dirección hacia adelante en el plano horizontal (ignora inclinaciones verticales)
+Vector3 movement = movementDirection * movementY; // Crea el vector de movimiento basado en el input y la dirección de la cámara
+```
+1. Con el Quaternion, obtenemos la rotación de la cámara
+2. Cremos un vector3 con la dirección de rotación de la cámara y lo multiplicamos por el Vector3.forward para ir solo hacia adelante
+3. Proyectamos la dirección hacia adelante en el plano horizontal
+4. Por último, multiplicamos el movementDirection por el movementY, que es cuando el jugador le da a las flechas adelante y atrás y listo, ya tenemos cámara en primera persona.
