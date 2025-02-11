@@ -767,7 +767,71 @@ Cuando el enemigo entra en contacto con un objeto 3D cuya etiqueta sea ***Player
 
 Básicamente aplicamos una fuerza sobre el ejeY y nos manda a volar.
 
+### 5. Creacion y script de la máquina de estados. 😄
+Ahora tenemos que ponerle una máquina de estados a nuestro jugador. Vamos a definir **5 estados** para nuestro jugador:
+- idle -> El jugador está parado
+- run -> El jugador está en movimiento
+- superSpeed -> El jugador aumenta su velocidad al recoger un número determinado de coleccionables
+- invenbile -> El jugador se vuelve invencible y no es afectado por la colisión del enemigo al recoger un coleccioble
+- dead -> El jugador muere al perder todas las vidas
+  
+![estados1](https://github.com/user-attachments/assets/298cf3c7-9c37-43ac-b134-ffb781027b9f)
 
+```bash
+#manejo de estado del superSpeed
+    void superSpeed()
+    {
+        if (countObjectsInt >= 9)
+        {
+            anim.SetBool("items6", true);
+            speed = 50.0f;
+        }
+        else
+        {
+            anim.SetBool("items6", false);
+            speed = 10.0f;
+        }
+    }
+```
 
+En el script lo que hacemos es que si el jugador coge un número de items, en este caso 9 o más, se aumenta la velocidad a 50.
+Si no es así, el speed será de 10.
+
+```bash
+#manejo de la invencibilidad
+else if (other.gameObject.CompareTag("invencible"))
+        {
+            soyInmortal = true;
+            other.gameObject.SetActive(false);
+            anim.SetBool("itemInvencible", true);
+        }
+```
+
+Con el script anterior lo que hacemos es, si el jugador coge el coleccionable con el tag ***invencible*** hacemos 3 cosas:
+1. cambiamos un booleano a true
+2. quitamos el coleccionable de invencibilidad
+3. cambiamos el estado
+
+Como el booleano ***soyInmortal*** ahora es true, se ejecuta esto.
+
+```bash
+ if (soyInmortal)
+        {
+            timerInvencible += Time.deltaTime;
+            changeColorPelotaInmortal();
+            if (timerInvencible >= colorChangeInvencibleInterval)
+            {
+                speed = 30;
+                anim.SetBool("itemInvencible", false);
+                soyInmortal = false;
+                coloresPelota.material.color = colors[2];
+
+            }
+        }
+```
+Esto lo que hará es un timer de unos segundos, que es lo que durará la invencibilidad. también hacemos lo siguiente:
+1. cambiamos los colres de la pelota
+2. la colisión del enemigo no nos afecta
+3. Tenemos algo más de velocidas
 
 
