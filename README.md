@@ -7,7 +7,6 @@
 - Creación y script de los coleccionables.
 - Creación y script del enemigo.
 - Creacion y script de la máquina de estados.
-- Creación y scripts asociados a los power Ups del juego.
 - Diseño de los niveles.
 
 
@@ -833,5 +832,42 @@ Esto lo que hará es un timer de unos segundos, que es lo que durará la invenci
 1. cambiamos los colres de la pelota
 2. la colisión del enemigo no nos afecta
 3. Tenemos algo más de velocidas
+
+
+### 6. Diseño de los niveles. 😄
+
+En nuestro juego tenemos un total de **4 niveles**.
+
+***reglas del juego*** 🤗
+
+1. Cada nivel tiene 12 coleccionables
+2. El jugador tiene 3 vidas
+3. El jugador tiene que coger lso 12 coleccionables de los 4 niveles sin que sus vidan lleguen a 0
+4. Si las vidas llegan a 0, el jugador pierde
+5. Tenemos 2 enemigos en el juego
+
+
+#### Nivel 1.
+
+![nivel1](https://github.com/user-attachments/assets/7bc7d456-81e8-4f97-be13-8ff156b0dd99)
+
+
+#### Nivel 2.
+
+![nivel2](https://github.com/user-attachments/assets/6cc280be-bd71-486b-9c63-091b4f6dcae6)
+
+
+#### Nivel 3.
+
+![nivel3](https://github.com/user-attachments/assets/efe204ed-6774-48d7-ab5d-30c591b9e723)
+
+#### Nivel 4.
+
+![nivel4](https://github.com/user-attachments/assets/3e262ba9-44c9-449d-89af-15c1da145887)
+![nivel4parte2](https://github.com/user-attachments/assets/fd7315c2-8bbb-4cd5-8c58-8b026889e87c)
+![nivel4parte3](https://github.com/user-attachments/assets/ca1ddc6e-d7a0-4b28-b608-cd249a622c50)
+
+
+
 
 
